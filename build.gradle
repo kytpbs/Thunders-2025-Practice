@@ -1,7 +1,25 @@
 plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "2024.3.2"
+    id "com.diffplug.spotless" version "6.23.3"
 }
+
+spotless {
+  java {
+    target fileTree('.') {
+        include '**/*.java'
+        exclude '**/build/**', '**/build-*/**', '**/logs/**'
+    }
+    toggleOffOn()
+    googleJavaFormat('1.19.1')
+    removeUnusedImports()
+    trimTrailingWhitespace()
+    endWithNewline()
+
+    licenseHeader ''
+  }
+}
+
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
